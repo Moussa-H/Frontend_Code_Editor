@@ -4,7 +4,7 @@
     margin: 0 auto;
 }
 
-.signup-content {
+.signup-content .login-content {
     background: #fff;
     border-radius: 10px;
     padding: 50px 85px;
