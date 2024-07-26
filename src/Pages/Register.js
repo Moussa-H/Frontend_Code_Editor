@@ -16,9 +16,10 @@ export default function Register() {
     }));
   };
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add submit logic here
+
   };
 
   return (
@@ -28,13 +29,13 @@ export default function Register() {
           <div className="signup-content">
             <form onSubmit={handleSubmit} className="signup-form">
               <h2 className="form-title">Create account</h2>
-              <div className="form-group">
+              <div className="form-group" >
                 <input
                   type="text"
                   className="form-input"
                   name="fullname"
                   value={formData.fullname}
-                  onChange={handleChange}
+                  onChange={handleChange} 
                   placeholder="Your FullName"
                 />
               </div>
