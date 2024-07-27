@@ -18,15 +18,18 @@ export default function Code_editor() {
 
   function runCode() {
     axios
-      .post("/run-python", { code: editorValue })
+      .post("http://127.0.0.1:8000/api/codes/compile", { code: editorValue })
       .then((response) => {
-        setOutput(response.data.output);
+        if (response.data.status === "error") {
+          setOutput(`Error: ${response.data.details}`);
+        } else {
+          setOutput(response.data.output);
+        }
       })
       .catch((error) => {
         setOutput(`Error: ${error.message}`);
       });
   }
-
   function saveCode() {
     axios
       .post("/save-python", { code: editorValue })
@@ -36,6 +39,10 @@ export default function Code_editor() {
       .catch((error) => {
         alert(`Error saving code: ${error.message}`);
       });
+  }
+
+  function handleClear(){
+    setOutput("")
   }
 
   return (
@@ -122,9 +129,9 @@ export default function Code_editor() {
 
         <div className="output-wrapper">
           <div className="terminal-desktop-top-bar">
-            <div className="shell-name">{output}</div>
+            <div className="shell-name"></div>
             <div className="terminal-desktop-top-bar__btn-wrapper">
-              <button className="desktop-clear-button">
+              <button className="desktop-clear-button" onClick={handleClear}>
                 &nbsp;Clear&nbsp;
               </button>
             </div>
