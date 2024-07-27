@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../Styles/Auth.css";
-
+import Header from "../Common/Header";
+import { Link } from "react-router-dom";
 export default function Register() {
   const [formData, setFormData] = useState({
     fullname: "",
@@ -18,11 +19,11 @@ export default function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add submit logic here
   };
 
   return (
     <div>
+      <Header />
       <section className="signup">
         <div className="container">
           <div className="signup-content">
@@ -66,9 +67,9 @@ export default function Register() {
             </form>
             <p className="loginhere">
               Have already an account?{" "}
-              <a href="#" className="loginhere-link">
+              <Link to="/login" className="loginhere-link">
                 Login here
-              </a>
+              </Link>
             </p>
           </div>
         </div>
