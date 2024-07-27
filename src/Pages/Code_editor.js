@@ -45,16 +45,16 @@ export default function Code_editor() {
     setOutput("")
   }
 
-  const handleDownload = (editorValue, fileName = "example.py") => {
-      const blob = new Blob([editorValue], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = fileName;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+  function downloadFile(content, fileName, contentType) {
+    const a = document.createElement("a");
+    const file = new Blob([content], { type: contentType });
+    a.href = URL.createObjectURL(file);
+    a.download = fileName;
+    a.click();
+  }
+
+  function handleDownload() {
+    downloadFile(editorValue, "main.py", "text/x-python");
   }
   return (
     <>
