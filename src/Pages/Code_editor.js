@@ -45,6 +45,17 @@ export default function Code_editor() {
     setOutput("")
   }
 
+  const handleDownload = (editorValue, fileName = "example.py") => {
+      const blob = new Blob([editorValue], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+  }
   return (
     <>
       <Header />
@@ -110,7 +121,7 @@ export default function Code_editor() {
                 </svg>
                 Share
               </button>
-              <FaDownload className="downloadbtn" title="download code" />
+              <FaDownload className="downloadbtn" title="download code" onClick={handleDownload}/>
               <button className="desktop-run-button run" onClick={runCode}>
                 <span className="run-text"> &nbsp;Run&nbsp; </span>
               </button>
