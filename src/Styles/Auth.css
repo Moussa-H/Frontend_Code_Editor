@@ -51,3 +51,6 @@ form-title {
     background-image: linear-gradient(to left,#74ebd5,#9face6);
 }
 
+.login-content {
+    margin-top: 80px;
+}

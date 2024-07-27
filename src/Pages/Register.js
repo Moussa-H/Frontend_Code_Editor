@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../Styles/Auth.css";
-
+import Header from "../Common/Header";
+import { Link } from "react-router-dom";
 export default function Register() {
   const [formData, setFormData] = useState({
     fullname: "",
@@ -16,26 +17,25 @@ export default function Register() {
     }));
   };
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
-
   };
 
   return (
     <div>
+      <Header />
       <section className="signup">
         <div className="container">
           <div className="signup-content">
             <form onSubmit={handleSubmit} className="signup-form">
               <h2 className="form-title">Create account</h2>
-              <div className="form-group" >
+              <div className="form-group">
                 <input
                   type="text"
                   className="form-input"
                   name="fullname"
                   value={formData.fullname}
-                  onChange={handleChange} 
+                  onChange={handleChange}
                   placeholder="Your FullName"
                 />
               </div>
@@ -67,9 +67,9 @@ export default function Register() {
             </form>
             <p className="loginhere">
               Have already an account?{" "}
-              <a href="#" className="loginhere-link">
+              <Link to="/login" className="loginhere-link">
                 Login here
-              </a>
+              </Link>
             </p>
           </div>
         </div>
