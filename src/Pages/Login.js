@@ -3,8 +3,10 @@ import { useState } from "react";
 import Header from "../Common/Header";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const navigate = useNavigate()
   const [emailValue, setEmail] = useState('')
   const [passwordValue, setPassword] = useState('')
 
@@ -36,6 +38,9 @@ export default function Login() {
     console.log(data)
     if(data.status === 'success'){
       localStorage.setItem("token", data.authorisation.token);
+         navigate("/");
+    } else {
+      console.log("Login failed");
     }
 
   }

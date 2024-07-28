@@ -2,9 +2,14 @@ import React, { useState } from "react";
 import "../Styles/Auth.css";
 import Header from "../Common/Header";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+
 export default function Register() {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
-    fullname: "",
+    name: "",
     email: "",
     password: "",
   });
@@ -17,8 +22,38 @@ export default function Register() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const fetchUser = async (form) => {
+    try {
+      const { data } = await axios.post('http://127.0.0.1:8000/api/register', form);
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.error('Error:', error.message);
+      if (error.response) {
+        console.error('Response data:', error.response.data);
+        console.error('Response status:', error.response.status);
+      }
+      throw error; 
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const data = await fetchUser(formData);
+      console.log(data);
+      if(data.status === 'success'){
+        navigate('/login')
+      }
+        else {
+          console.log("signup failed");
+        }
+    
+    } catch (error) {
+      console.error( error);
+    }
+
+    
   };
 
   return (
@@ -33,8 +68,8 @@ export default function Register() {
                 <input
                   type="text"
                   className="form-input"
-                  name="fullname"
-                  value={formData.fullname}
+                  name="name"
+                  value={formData.name}
                   onChange={handleChange}
                   placeholder="Your FullName"
                 />
