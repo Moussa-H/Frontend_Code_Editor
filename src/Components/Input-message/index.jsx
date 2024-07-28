@@ -4,7 +4,7 @@ import './style.css'
 import { IoMdSend } from "react-icons/io";
 import ChatSection from "../Chat-section";
 
-const InputMessage = ({onSendClick, value, onMessageChange})=>{
+const InputMessage = ({ value, onMessageChange})=>{
 
     return(
         
@@ -15,7 +15,7 @@ const InputMessage = ({onSendClick, value, onMessageChange})=>{
             onChange={onMessageChange}/>
             
             <IoMdSend className="send-icon" 
-            onClick={onSendClick}/>
+            onClick={''}/>
 
         </div>
     )
