@@ -1,0 +1,12 @@
+.card-container{
+    background-color: red;
+    height: 50px;
+    width: 100%;
+    gap: 10px;
+    justify-content: flex-start;
+    
+}
+
+.info-container{
+    font-size: 14px;
+}

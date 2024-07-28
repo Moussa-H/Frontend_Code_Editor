@@ -1,0 +1,16 @@
+.container{
+    width: 100vw;
+    height: 100vh;
+}
+
+.left-side{
+    background-color: blueviolet;
+    padding: 30px 10px;
+    width: 30%;
+    gap: 20px;
+}
+
+.right-side{
+    width: 70%;
+}
+
