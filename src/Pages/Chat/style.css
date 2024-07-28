@@ -14,4 +14,9 @@
     width: 70%;
     padding: 30px 30px;
 }
+.user-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-top: 10px;
+  }
 

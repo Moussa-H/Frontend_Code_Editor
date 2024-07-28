@@ -1,5 +1,5 @@
 import React from 'react';
-import './Message.css';
+import './style.css';
 
 const Message = ({ text, user }) => {
   return (
