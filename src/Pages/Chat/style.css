@@ -4,7 +4,7 @@
 }
 
 .left-side{
-    background-color: blueviolet;
+    background-color: rgb(209, 208, 208);
     padding: 30px 10px;
     width: 30%;
     gap: 20px;
@@ -12,5 +12,6 @@
 
 .right-side{
     width: 70%;
+    padding: 30px 30px;
 }
 

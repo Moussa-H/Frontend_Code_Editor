@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Register from "./Pages/Register";
 import Code_editor from "./Pages/Code_editor";
 import Login from "./Pages/Login";
-import ChatPage from "./Pages/Chat/Chat_page";
+import ChatPage from "./Pages/Chat";
 function App() {
   return (
     <div>
