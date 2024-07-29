@@ -3,6 +3,7 @@ import Register from "./Pages/Register";
 import Code_editor from "./Pages/Code_editor";
 import Login from "./Pages/Login";
 import ChatPage from "./Pages/ChatPage";
+import AdminPanel from "./Pages/Admin-page";
 function App() {
   return (
     <div>
