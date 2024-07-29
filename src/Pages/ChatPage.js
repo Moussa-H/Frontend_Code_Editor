@@ -75,9 +75,9 @@ const ChatPage = () => {
         </div>
       </div>
       <div className="right-side flex column">
-        {/* {selectedDeveloper && (
-          <ChatMessages developer={selectedDeveloper.name} />
-        )} */}
+        {selectedDeveloper && (
+          <ChatMessages developer={selectedDeveloper} />
+        )}
       </div>
     </div>
   );
