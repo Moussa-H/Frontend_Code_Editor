@@ -2,8 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Register from "./Pages/Register";
 import Code_editor from "./Pages/Code_editor";
 import Login from "./Pages/Login";
-import ChatPage from "./Pages/Chat";
-import AdminPanel from "./Pages/Admin-page";
+import ChatPage from "./Pages/ChatPage";
 function App() {
   return (
     <div>
@@ -16,7 +15,6 @@ function App() {
           <Route path="/admin" element={<AdminPanel />} />
         </Routes>
       </BrowserRouter>
-      
     </div>
   );
 }
