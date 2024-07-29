@@ -1,0 +1,16 @@
+.user-record {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.user-details {
+    flex: 1;
+}
+
+.user-actions {
+    display: flex;
+    gap: 10px;
+}

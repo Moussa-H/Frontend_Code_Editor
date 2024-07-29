@@ -3,6 +3,7 @@ import Register from "./Pages/Register";
 import Code_editor from "./Pages/Code_editor";
 import Login from "./Pages/Login";
 import ChatPage from "./Pages/Chat";
+import AdminPanel from "./Pages/Admin-page";
 function App() {
   return (
     <div>
@@ -12,6 +13,7 @@ function App() {
           <Route path="/Login" element={<Login />} />
           <Route path="/" element={<Code_editor />} />
           <Route path="/chat" element={<ChatPage />} />
+          <Route path="/admin" element={<AdminPanel />} />
         </Routes>
       </BrowserRouter>
       
