@@ -12,7 +12,9 @@
 
 .card-header {
     background-color: #007bff;
+    padding: 5px;
     color: #fff;
+    margin-bottom: 10px;
 }
 
 button {

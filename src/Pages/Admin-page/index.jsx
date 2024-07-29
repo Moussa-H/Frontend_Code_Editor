@@ -44,11 +44,11 @@ const AdminPanel = () => {
                         </div>
                         <button type="submit" className="btn btn-primary mb-2">Import Users</button>
                     </div>
-                    <ul className="list-group">
+                    <div className="list-group">
                         {users.map(user => (
                             <UserRecord user={user} onChange={handleEditUser} onRemove={handleRemoveUser}/>
                         ))}
-                    </ul>
+                    </div>
                 </div>
             </div>
         </div>

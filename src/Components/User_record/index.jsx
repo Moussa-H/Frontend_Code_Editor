@@ -10,8 +10,8 @@ const UserRecord = ({ user, onRemove, onChange }) => {
                 <p><strong>Email:</strong> {user.email}</p>
             </div>
             <div className="user-actions">
-                <button className="btn btn-danger" onClick={() => onRemove()}>Remove</button>
-                <button className="btn btn-primary" onClick={() => onChange()}>Change</button>
+                <button className="btn btn-remove" onClick={() => onRemove()}>Remove</button>
+                <button className="btn btn-edit" onClick={() => onChange()}>Change</button>
             </div>
         </div>
     );

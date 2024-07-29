@@ -14,3 +14,26 @@
     display: flex;
     gap: 10px;
 }
+.btn{
+    border-radius: 5px;
+    padding: 5px;
+    color: white;
+    font-weight: 600;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-remove{
+    background-color: red;
+}
+
+.btn-edit{
+    background-color: green;
+}
+
+.btn-remove:hover{
+    background-color: rgb(228, 95, 95);
+}
+.btn-edit:hover{
+    background-color: rgb(51, 209, 51);}
