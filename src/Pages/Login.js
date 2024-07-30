@@ -38,7 +38,12 @@ export default function Login() {
     console.log(data)
     if(data.status === 'success'){
       localStorage.setItem("token", data.authorisation.token);
-         navigate("/");
+      if(data.user_role === 'admin'){
+        navigate("/admin");
+      }else{
+        navigate("/")
+      }
+         
     } else {
       console.log("Login failed");
     }
