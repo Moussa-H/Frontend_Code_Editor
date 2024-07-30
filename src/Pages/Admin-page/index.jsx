@@ -9,7 +9,6 @@ const AdminPanel = () => {
     const [usersFilter, setUsersFilter] = useState([])
     const [inputValue, setInputValue] = useState('')
     const [rows, setRows] = useState([])
-    const [file, setFile] = useState(null);
 
     const handleSearchChange = (e)=>{
         setInputValue(e.target.value)
@@ -56,9 +55,7 @@ const AdminPanel = () => {
                 const sheets = wb.SheetNames
                 if(sheets.length){
                     const row = utils.sheet_to_json(wb.Sheets[sheets[0]])
-                    setRows(row)
-                    
-
+                    setRows(row)                
                 }
             }
             reader.readAsArrayBuffer(file)
@@ -86,8 +83,6 @@ const AdminPanel = () => {
             }
         }
     };
-
-    const handleEditUser =()=>{console.log('user edited')}
 
         const handleRemoveUser = async (user) => {
         try {
@@ -128,7 +123,7 @@ const AdminPanel = () => {
                     </div>
                     <div className="list-group">
                         {usersFilter.map(user => (
-                            <UserRecord user={user} onChange={handleEditUser} onRemove={handleRemoveUser}/>
+                            <UserRecord user={user} onRemove={handleRemoveUser}/>                   
                         ))}
                     </div>
                 </div>
