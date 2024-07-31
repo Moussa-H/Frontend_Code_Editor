@@ -11,7 +11,30 @@ export default function Code_editor() {
     "# Write your Python code here"
   );
   const [output, setOutput] = useState("");
+  const [suggestion, setSuggestion] = useState("")
 
+  const getAISuggestion = async () => {
+    try {
+      const response = await axios.post(
+        'url',
+        {
+          model: 'gpt-3.5-turbo',
+          prompt: editorValue,
+          max_tokens: 100,
+          temperature: 0.7,
+        },
+        {
+          headers: {
+            'Authorization': `Bearer`
+          }
+        }
+      );
+      return response.data.choices[0].text;
+    } catch (error) {
+      console.error('Error fetching AI suggestion:', error);
+      return null;
+    }
+  }
   function handleEditorChange(value) {
     setEditorValue(value);
     console.log(value);
@@ -35,6 +58,9 @@ export default function Code_editor() {
       .catch((error) => {
         setOutput(`Error: ${error.message}`);
       });
+      const result = getAISuggestion()
+      console.log(result)
+
   }
   function saveCode() {
     axios
