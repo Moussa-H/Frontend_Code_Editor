@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Header from "../Common/Header";
 import Editor from "@monaco-editor/react";
 import "../Styles/Code_editor.css";
 import { FaDownload } from "react-icons/fa";
 import axios from "axios";
 import { getToken } from "../Functions/Auth";
+import debounce from "lodash/debounce"; // Using lodash for debouncing
 
-export default function Code_editor() {
+export default function CodeEditor() {
   const [editorValue, setEditorValue] = useState(
     "# Write your Python code here"
   );
@@ -16,7 +17,7 @@ export default function Code_editor() {
   const getAISuggestion = async () => {
     try {
       const response = await axios.post(
-        "https://api.openai.com/v1/chat/completions", // Correct endpoint for chat models
+        "https://api.openai.com/v1/chat/completions",
         {
           model: "gpt-3.5-turbo",
           messages: [
@@ -28,19 +29,13 @@ export default function Code_editor() {
         },
         {
           headers: {
-            Authorization: `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`, // Access the API key from environment variables
+            Authorization: `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
           },
         }
       );
-      return response.data.choices[0].message.content.trim(); // Access the content from the message
+      return response.data.choices[0].message.content.trim();
     } catch (error) {
-      if (error.response) {
-        console.error("Response error:", error.response.data);
-      } else if (error.request) {
-        console.error("Request error:", error.request);
-      } else {
-        console.error("General error:", error.message);
-      }
+      console.error("Error fetching AI suggestion:", error);
       return "Error fetching AI suggestion";
     }
   };
@@ -98,6 +93,20 @@ export default function Code_editor() {
   const handleDownload = () => {
     downloadFile(editorValue, "main.py", "text/x-python");
   };
+
+  const handleResize = useCallback(
+    debounce(() => {
+      // Handle resize logic
+    }, 100),
+    []
+  );
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [handleResize]);
 
   return (
     <>
@@ -166,7 +175,7 @@ export default function Code_editor() {
               </button>
               <FaDownload
                 className="downloadbtn"
-                title="download code"
+                title="Download code"
                 onClick={handleDownload}
               />
               <button className="desktop-run-button run" onClick={runCode}>
@@ -199,7 +208,7 @@ export default function Code_editor() {
           {suggestion && (
             <div className="suggestion">
               <h3>AI Suggestion</h3>
-              <pre>{suggestion}</pre>
+              <p className="suggestion-msg">{suggestion}</p>
             </div>
           )}
         </div>

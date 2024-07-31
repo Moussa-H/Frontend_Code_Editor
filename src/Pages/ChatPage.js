@@ -3,6 +3,7 @@ import "../Styles/Chat.css";
 import "../Styles/utilities.css";
 import "../Styles/colors.css";
 import Header from "../Common/Header";
+import { IoChatbubblesOutline } from "react-icons/io5";
 
 import DeveloperItem from "../Components/DeveloperItem";
 import ChatMessages from "../Components/ChatMessages";
@@ -82,14 +83,23 @@ const ChatPage = () => {
             ))}
           </div>
         </div>
+        {selectedDeveloper ? (
         <div className="right-side flex column">
-          {selectedDeveloper ? (
+          
             <ChatMessages selectedDeveloper={selectedDeveloper} />
+            </div>
           ) : (
-            <h1>No selected developer</h1>
+            
+            <div className="no-chat">
+              <IoChatbubblesOutline />
+              <p className="msg-chat">
+                Start a conversation with a developer and get your queries
+                answered!
+              </p>
+          </div>
           )}
         </div>
-      </div>
+  
     </>
   );
 };

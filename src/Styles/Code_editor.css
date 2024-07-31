@@ -46,6 +46,20 @@
   cursor: pointer;
   padding: 6px;
 }
+.share-button:hover{
+  background: none;
+}
+p.suggestion-msg {
+    font-size: 13px;
+}
+.suggestion {
+    border-top: 1px solid #b4b4b4;
+    margin-top: 50px;
+    padding-left: 10px;
+}
+.output-wrapper pre {
+    padding-left: 10px;
+}
 .run {
   cursor: pointer;
   padding: 6px 16px;

@@ -43,13 +43,15 @@ export default function Login() {
     e.preventDefault();
     const data = await fetchUser(emailValue, passwordValue);
     console.log(data);
-  
-      setToken(data.authorisation.token);
-      setName(data.name);
-      setUserRole(data.user_role);
 
+    setToken(data.authorisation.token);
+    setName(data.name);
+    setUserRole(data.user_role);
+    if (data.user_role === "admin") {
+      navigate("/admin");
+    } else {
       navigate("/");
- 
+    }
   };
   return (
     <>
