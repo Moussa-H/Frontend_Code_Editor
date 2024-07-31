@@ -1,39 +1,111 @@
+/* General container for user record */
 .user-record {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 10px 0;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
 }
 
+/* User details */
 .user-details {
-    flex: 1;
+    margin-bottom: 10px;
 }
 
+.user-details p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+/* Actions (buttons) */
 .user-actions {
     display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.btn {
+    padding: 5px 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-remove {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+.btn-remove:hover {
+    background-color: #ff3333;
+}
+
+.btn-edit {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.btn-edit:hover {
+    background-color: #45a049;
+}
+
+/* Edit form */
+.edit-form {
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.edit-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.edit-form input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+/* Form actions */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
     gap: 10px;
 }
-.btn{
-    border-radius: 5px;
-    padding: 5px;
-    color: white;
-    font-weight: 600;
-    outline: none;
+
+.form-actions button {
+    padding: 5px 10px;
+    font-size: 14px;
     border: none;
+    border-radius: 3px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.btn-remove{
-    background-color: red;
+.form-actions button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
 }
 
-.btn-edit{
-    background-color: green;
+.form-actions button[type="submit"]:hover {
+    background-color: #45a049;
 }
 
-.btn-remove:hover{
-    background-color: rgb(228, 95, 95);
+.form-actions button[type="button"] {
+    background-color: #ff4d4d;
+    color: white;
 }
-.btn-edit:hover{
-    background-color: rgb(51, 209, 51);}
+
+.form-actions button[type="button"]:hover {
+    background-color: #ff3333;
+}

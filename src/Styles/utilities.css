@@ -1,7 +1,9 @@
 .flex {
   display: flex;
 }
-
+.outline{
+  outline: none;
+}
 .row {
   flex-direction: row;
 }

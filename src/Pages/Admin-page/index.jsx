@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './style.css'
+import '../../Styles/utilities.css'
 import axios from 'axios';
 import UserRecord from '../../Components/User_record';
 import {read, utils, writeFile} from 'xlsx';
@@ -103,20 +104,21 @@ const AdminPanel = () => {
         }
     };
     return (
-        <div className="panel-container">
+        <div className="panel-container flex">
             <div className="card">
                 <div className="card-header">
                     <h1>Admin Panel</h1>
                 </div>
                 <input
+                    className='outline'
                     type="text"
                     placeholder="Search for.."
                     value={inputValue}
                     onChange={handleSearchChange}
                 />
-                <div className="card-body">
-                    <div className="form-inline">
-                        <div className="form-group mb-2">
+                <div className="card-body flex column">
+                    <div className="form-inline flex ">
+                        <div className="form-group flex center">
                             <input type="file" 
                             className="form-control-file"
                             accept='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' 

@@ -74,8 +74,8 @@ const UserRecord = ({ user, onRemove, onUpdate }) => {
                     </label>
                 </div>
                 <div className="form-actions">
-                    <button type="submit" className="" onClick={handleSubmit}>Save</button>
-                    <button type="button" className="" onClick={handleCancel}>Cancel</button>
+                    <button type="submit" className="btn" onClick={handleSubmit}>Save</button>
+                    <button type="button" className="btn" onClick={handleCancel}>Cancel</button>
                 </div>
             </form>
             ) }
