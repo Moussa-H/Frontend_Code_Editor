@@ -119,3 +119,23 @@ button.share-button svg {
   padding: 50px 85px;
   margin-top: 50px;
 }
+
+.menu a {
+    margin-right: 50px;
+    text-decoration: none;
+    color: #007bff;
+    font-weight: 500;
+}
+.logo {
+    font-size: 10px !important;
+    font-weight: bold;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+    mix-blend-mode: multiply;
+}
+a:hover {
+    text-decoration: none;
+    text-decoration: none!important;
+}

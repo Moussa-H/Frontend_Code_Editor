@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import Header from "../Common/Header";
+// import Header from "../Common/header";
 import Editor from "@monaco-editor/react";
 import "../Styles/Code_editor.css";
 import { FaDownload } from "react-icons/fa";
 import axios from "axios";
+import { getToken } from "../Functions/Auth";
 
 export default function Code_editor() {
   const [editorValue, setEditorValue] = useState(
@@ -18,7 +19,15 @@ export default function Code_editor() {
 
   function runCode() {
     axios
-      .post("http://127.0.0.1:8000/api/codes/compile", { code: editorValue })
+      .post(
+        "http://127.0.0.1:8000/api/codes/compile",
+        { code: editorValue },
+        {
+          headers: {
+            Authorization: `Bearer ${getToken()}`,
+          },
+        }
+      )
       .then((response) => {
         if (response.data.status === "error") {
           setOutput(`Error: ${response.data.details}`);
@@ -41,8 +50,8 @@ export default function Code_editor() {
       });
   }
 
-  function handleClear(){
-    setOutput("")
+  function handleClear() {
+    setOutput("");
   }
 
   function downloadFile(content, fileName, contentType) {
@@ -58,7 +67,7 @@ export default function Code_editor() {
   }
   return (
     <>
-      <Header />
+     {/* <Header />  */}
       <div className="code-editor">
         <div className="editor-wrapper">
           <div className="editor-desktop-top-bar">
@@ -121,7 +130,11 @@ export default function Code_editor() {
                 </svg>
                 Share
               </button>
-              <FaDownload className="downloadbtn" title="download code" onClick={handleDownload}/>
+              <FaDownload
+                className="downloadbtn"
+                title="download code"
+                onClick={handleDownload}
+              />
               <button className="desktop-run-button run" onClick={runCode}>
                 <span className="run-text"> &nbsp;Run&nbsp; </span>
               </button>

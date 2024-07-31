@@ -80,7 +80,11 @@ const ChatPage = () => {
         </div>
       </div>
       <div className="right-side flex column">
-        <ChatMessages developer={{ receiver_id: 137, name: "Ali" }} />
+        {selectedDeveloper ? (
+          <ChatMessages selectedDeveloper={selectedDeveloper} />
+        ) : (
+          <h1>No selected developer</h1>
+        )}
       </div>
     </div>
   );
