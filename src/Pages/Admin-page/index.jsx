@@ -28,7 +28,7 @@ const AdminPanel = () => {
     const fetchUsers = async()=>{
         try{
             const token = authLocal.getToken()
-            const {data} = await axios('http://127.0.0.1:8000/api/users',{
+            const {data} = await axios('http://127.0.0.1:8000/api/users/adminUsers',{
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
