@@ -3,6 +3,7 @@ import './style.css'
 import axios from 'axios';
 import UserRecord from '../../Components/User_record';
 import {read, utils, writeFile} from 'xlsx';
+import { authLocal } from '../../source/local/auth_local';
 
 const AdminPanel = () => {
     const [users, setUsers] = useState([]);
@@ -26,7 +27,7 @@ const AdminPanel = () => {
 
     const fetchUsers = async()=>{
         try{
-            const token = localStorage.getItem('token')
+            const token = authLocal.getToken()
             const {data} = await axios('http://127.0.0.1:8000/api/users',{
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -64,7 +65,7 @@ const AdminPanel = () => {
 
     const handleImport = async () => {
         console.log(rows)
-        const token = localStorage.getItem('token');
+        const token = authLocal.getToken()
         const usersArray = Object.values(rows);
         console.log(typeof(usersArray))
         try {
@@ -86,7 +87,8 @@ const AdminPanel = () => {
 
         const handleRemoveUser = async (user) => {
         try {
-            const token = localStorage.getItem('token')
+            const token = authLocal.getToken()
+            console.log(token)
             await axios.delete(`http://127.0.0.1:8000/api/users/${user.id} `,{
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -94,6 +96,7 @@ const AdminPanel = () => {
             });
             setUsers(users.filter((u) => u.id !== user.id));
             console.log(`user with ${user.id} and ${user.name} is deleted`)
+            fetchUsers()
         
         } catch (error) {
             console.error('Error removing user:', error);
@@ -123,7 +126,7 @@ const AdminPanel = () => {
                     </div>
                     <div className="list-group">
                         {usersFilter.map(user => (
-                            <UserRecord user={user} onRemove={handleRemoveUser}/>                   
+                            <UserRecord user={user} onRemove={handleRemoveUser} onUpdate={fetchUsers}/>                   
                         ))}
                     </div>
                 </div>

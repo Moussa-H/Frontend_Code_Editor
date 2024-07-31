@@ -4,6 +4,7 @@ import Header from "../Common/Header";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { authLocal } from "../source/local/auth_local";
 
 export default function Login() {
   const navigate = useNavigate()
@@ -37,7 +38,7 @@ export default function Login() {
     const data = await fetchUser(emailValue, passwordValue)
     console.log(data)
     if(data.status === 'success'){
-      localStorage.setItem("token", data.authorisation.token);
+      authLocal.setToken(data.authorisation.token)
       if(data.user_role === 'admin'){
         navigate("/admin");
       }else{

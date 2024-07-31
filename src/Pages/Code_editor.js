@@ -4,6 +4,7 @@ import Editor from "@monaco-editor/react";
 import "../Styles/Code_editor.css";
 import { FaDownload } from "react-icons/fa";
 import axios from "axios";
+import { authLocal } from "../source/local/auth_local";
 
 export default function Code_editor() {
   const [editorValue, setEditorValue] = useState(
@@ -17,8 +18,13 @@ export default function Code_editor() {
   }
 
   function runCode() {
+    const token = authLocal.getToken()
     axios
-      .post("http://127.0.0.1:8000/api/codes/compile", { code: editorValue })
+      .post("http://127.0.0.1:8000/api/codes/compile", { code: editorValue },{
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
       .then((response) => {
         if (response.data.status === "error") {
           setOutput(`Error: ${response.data.details}`);

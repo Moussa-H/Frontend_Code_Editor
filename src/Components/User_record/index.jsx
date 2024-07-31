@@ -4,7 +4,7 @@ import './style.css'
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 
-const UserRecord = ({ user, onRemove }) => {
+const UserRecord = ({ user, onRemove, onUpdate }) => {
     
     const [isEditing, setIsEditing] = useState(false)
     const [editedUser, setEditedUser] = useState(user);
@@ -45,7 +45,8 @@ const UserRecord = ({ user, onRemove }) => {
         console.log('submit')
         e.preventDefault();
         fetchUser(user)
-
+        setIsEditing(false)
+        onUpdate()
     }
 
     return (
