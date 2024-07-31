@@ -3,53 +3,53 @@ import { useState } from "react";
 import Header from "../Common/Header";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import "../Styles/Auth.css";
 import { useNavigate } from "react-router-dom";
-import { authLocal } from "../source/local/auth_local";
+import { setName, setToken, setUserRole } from "../Functions/Auth";
 
 export default function Login() {
-  const navigate = useNavigate()
-  const [emailValue, setEmail] = useState('')
-  const [passwordValue, setPassword] = useState('')
+  const navigate = useNavigate();
+  const [emailValue, setEmail] = useState("");
+  const [passwordValue, setPassword] = useState("");
 
-  const handleEmail = (e)=>{
-    setEmail(e.target.value)
-  }
-  console.log(emailValue)
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+  };
+  console.log(emailValue);
 
-  const handlePassword = (e)=>{
-    setPassword(e.target.value)
-  }
-  console.log(passwordValue)
-  
-  const fetchUser = async (email, password)=>{
-    try{
-      const {data} = await axios.post('http://127.0.0.1:8000/api/login',{
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+  };
+  console.log(passwordValue);
+
+  const fetchUser = async (email, password) => {
+    try {
+      const { data } = await axios.post("http://127.0.0.1:8000/api/login", {
         email,
-        password
-      })
-      console.log(data)
-      return data
-    }catch(error){
-      console.log(error)
+        password,
+      });
+      console.log(data);
+
+      return data;
+    } catch (error) {
+      console.log(error);
     }
-  }
-  const handleLogin =  async (e)=>{
+  };
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const data = await fetchUser(emailValue, passwordValue)
-    console.log(data)
-    if(data.status === 'success'){
-      authLocal.setToken(data.authorisation.token)
-      if(data.user_role === 'admin'){
-        navigate("/admin");
-      }else{
-        navigate("/")
-      }
-         
+    const data = await fetchUser(emailValue, passwordValue);
+    console.log(data);
+    if (data.status === "success") {
+      localStorage.setItem("token", data.authorisation.token);
+      setToken(data.authorisation.token);
+      setName(data.user.name);
+      setUserRole(data.user.user_role)
+
+      navigate("/");
     } else {
       console.log("Login failed");
     }
-
-  }
+  };
   return (
     <>
       <Header />
@@ -76,13 +76,15 @@ export default function Login() {
               />
             </div>
             <div className="form-group">
-              <button className="form-submit" onClick={handleLogin}>Login</button>
+              <button className="form-submit" onClick={handleLogin}>
+                Login
+              </button>
             </div>
           </form>
           <p className="loginhere">
-            Don t have an account?{""}
+            Don t have an account?{" "}
             <Link to="/Register" className="Signup-link">
-              Sign up here
+              Sign up
             </Link>
           </p>
         </div>

@@ -18,8 +18,13 @@ const ChatPage = () => {
   };
 
   const fetchUsers = async () => {
+    const token = localStorage.getItem("token");
     try {
-      const { data } = await axios.get("http://127.0.0.1:8000/api/users");
+      const { data } = await axios.get("http://127.0.0.1:8000/api/users", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setUsers(data.user);
       setFilteredUsers(data.user);
       console.log("users", data.user);
@@ -75,8 +80,10 @@ const ChatPage = () => {
         </div>
       </div>
       <div className="right-side flex column">
-        {selectedDeveloper && (
-          <ChatMessages developer={selectedDeveloper} />
+        {selectedDeveloper ? (
+          <ChatMessages selectedDeveloper={selectedDeveloper} />
+        ) : (
+          <h1>No selected developer</h1>
         )}
       </div>
     </div>
