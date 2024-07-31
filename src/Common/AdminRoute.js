@@ -6,7 +6,7 @@ const AdminRoute = ({ element: Element }) => {
   const token = getToken();
   const userRole = getUserRole();
 
-  return token && userRole === "admin" ? <Element /> : <Navigate to="/login" />;
+  return token && userRole === "admin" ? <Element /> : <Navigate to="/admin" />;
 };
 
 export default AdminRoute;

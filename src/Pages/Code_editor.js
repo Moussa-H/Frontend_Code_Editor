@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import Header from "../Common/header";
+import Header from "../Common/Header";
 import Editor from "@monaco-editor/react";
 import "../Styles/Code_editor.css";
 import { FaDownload } from "react-icons/fa";
@@ -11,39 +11,47 @@ export default function Code_editor() {
     "# Write your Python code here"
   );
   const [output, setOutput] = useState("");
-  const [suggestion, setSuggestion] = useState("")
+  const [suggestion, setSuggestion] = useState("");
 
   const getAISuggestion = async () => {
     try {
       const response = await axios.post(
-        'url',
+        "https://api.openai.com/v1/chat/completions", // Correct endpoint for chat models
         {
-          model: 'gpt-3.5-turbo',
-          prompt: editorValue,
+          model: "gpt-3.5-turbo",
+          messages: [
+            { role: "system", content: "You are a helpful assistant." },
+            { role: "user", content: editorValue },
+          ],
           max_tokens: 100,
           temperature: 0.7,
         },
         {
           headers: {
-            'Authorization': `Bearer`
-          }
+            Authorization: `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`, // Access the API key from environment variables
+          },
         }
       );
-      return response.data.choices[0].text;
+      return response.data.choices[0].message.content.trim(); // Access the content from the message
     } catch (error) {
-      console.error('Error fetching AI suggestion:', error);
-      return null;
+      if (error.response) {
+        console.error("Response error:", error.response.data);
+      } else if (error.request) {
+        console.error("Request error:", error.request);
+      } else {
+        console.error("General error:", error.message);
+      }
+      return "Error fetching AI suggestion";
     }
-  }
-  function handleEditorChange(value) {
-    setEditorValue(value);
-    console.log(value);
-  }
+  };
 
-  function runCode() {
-    const token = authLocal.getToken()
-    axios
-      .post(
+  const handleEditorChange = (value) => {
+    setEditorValue(value);
+  };
+
+  const runCode = async () => {
+    try {
+      const response = await axios.post(
         "http://127.0.0.1:8000/api/codes/compile",
         { code: editorValue },
         {
@@ -51,50 +59,49 @@ export default function Code_editor() {
             Authorization: `Bearer ${getToken()}`,
           },
         }
-      )
-      .then((response) => {
-        if (response.data.status === "error") {
-          setOutput(`Error: ${response.data.details}`);
-        } else {
-          setOutput(response.data.output);
-        }
-      })
-      .catch((error) => {
-        setOutput(`Error: ${error.message}`);
-      });
-      const result = getAISuggestion()
-      console.log(result)
+      );
 
-  }
-  function saveCode() {
-    axios
-      .post("/save-python", { code: editorValue })
-      .then((response) => {
-        alert("Code saved successfully!");
-      })
-      .catch((error) => {
-        alert(`Error saving code: ${error.message}`);
-      });
-  }
+      if (response.data.status === "error") {
+        setOutput(`Error: ${response.data.details}`);
+      } else {
+        setOutput(response.data.output);
+      }
 
-  function handleClear() {
+      const suggestionResult = await getAISuggestion();
+      setSuggestion(suggestionResult);
+    } catch (error) {
+      setOutput(`Error: ${error.message}`);
+    }
+  };
+
+  const saveCode = async () => {
+    try {
+      await axios.post("/save-python", { code: editorValue });
+      alert("Code saved successfully!");
+    } catch (error) {
+      alert(`Error saving code: ${error.message}`);
+    }
+  };
+
+  const handleClear = () => {
     setOutput("");
-  }
+  };
 
-  function downloadFile(content, fileName, contentType) {
+  const downloadFile = (content, fileName, contentType) => {
     const a = document.createElement("a");
     const file = new Blob([content], { type: contentType });
     a.href = URL.createObjectURL(file);
     a.download = fileName;
     a.click();
-  }
+  };
 
-  function handleDownload() {
+  const handleDownload = () => {
     downloadFile(editorValue, "main.py", "text/x-python");
-  }
+  };
+
   return (
     <>
-     {/* <Header />  */}
+      <Header />
       <div className="code-editor">
         <div className="editor-wrapper">
           <div className="editor-desktop-top-bar">
@@ -189,6 +196,12 @@ export default function Code_editor() {
           </div>
 
           <pre>{output}</pre>
+          {suggestion && (
+            <div className="suggestion">
+              <h3>AI Suggestion</h3>
+              <pre>{suggestion}</pre>
+            </div>
+          )}
         </div>
       </div>
     </>

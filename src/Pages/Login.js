@@ -23,8 +23,12 @@ export default function Login() {
   console.log(passwordValue);
 
   const fetchUser = async (email, password) => {
+    const token = localStorage.getItem("token");
     try {
       const { data } = await axios.post("http://127.0.0.1:8000/api/login", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
         email,
         password,
       });
@@ -39,16 +43,13 @@ export default function Login() {
     e.preventDefault();
     const data = await fetchUser(emailValue, passwordValue);
     console.log(data);
-    if (data.status === "success") {
-      localStorage.setItem("token", data.authorisation.token);
+  
       setToken(data.authorisation.token);
-      setName(data.user.name);
-      setUserRole(data.user.user_role)
+      setName(data.name);
+      setUserRole(data.user_role);
 
       navigate("/");
-    } else {
-      console.log("Login failed");
-    }
+ 
   };
   return (
     <>
